@@ -1,4 +1,5 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
+
 language: java
 jdk:
   - openjdk14
@@ -18,3 +19,6 @@ notifications:
       - chansforman@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+      env:
+        GLOBAL:
+          - CODECOV_TOKEN="9082dc6f-4538-4da9-a4ed-04ff921fdf91"
