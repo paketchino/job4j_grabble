@@ -12,30 +12,38 @@ import java.util.Properties;
 
 public class AlertRabbit {
 
-     private static Properties properties;
+    private Properties properties;
 
-    public static void readFileProperties() {
-        ClassLoader classLoader = AlertRabbit.class.getClassLoader();
+    public AlertRabbit(Properties properties) {
+        this.properties = properties;
+    }
+
+    public static int readFileProperties() {
+        Properties properties = new Properties();
+        ClassLoader classLoader = Rabbit.class.getClassLoader();
         try (InputStream loader = classLoader.getResourceAsStream("rabbit.properties")) {
             properties.load(loader);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return Integer.parseInt(properties.getProperty("rabbit.interval"));
     }
 
     public static void main(String[] args) {
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
-            JobDetail job = newJob(Rabbit.class).build();
-            SimpleScheduleBuilder times = SimpleScheduleBuilder
-                    .simpleSchedule()
-                    .withIntervalInSeconds(10)
+            JobDetail jobDetail = newJob(Rabbit.class).build();
+            SimpleScheduleBuilder times = SimpleScheduleBuilder.simpleSchedule()
+                    .withIntervalInSeconds(AlertRabbit.readFileProperties())
                     .repeatForever();
-            Trigger trigger = newTrigger().startNow().withSchedule(times).build();
-            scheduler.scheduleJob(job, trigger);
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+            Trigger trigger = newTrigger()
+                    .startNow()
+                    .withSchedule(times)
+                    .build();
+            scheduler.scheduleJob(jobDetail, trigger);
+        } catch (SchedulerException se) {
+            se.printStackTrace();
         }
     }
 
