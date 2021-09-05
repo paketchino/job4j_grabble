@@ -3,6 +3,7 @@ package ru.job4j.quartz.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Locale;
 import java.util.Map;
 
 public class SqlDataTimeParser implements DataTimeParser  {
@@ -32,7 +33,7 @@ public class SqlDataTimeParser implements DataTimeParser  {
     @Override
     public LocalDateTime parse(String parse) {
         String date = parse.split(",")[0];
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-MMM-yy", Locale.ENGLISH);
         String time = parse.split(",")[1];
         if (date.contains("сегодня")) {
             date = LocalDateTime.now().format(dateTimeFormatter);
@@ -45,8 +46,8 @@ public class SqlDataTimeParser implements DataTimeParser  {
         }
         DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder();
         dateTimeFormatterBuilder.parseCaseInsensitive();
-        dateTimeFormatterBuilder.appendPattern("d MMM yy HH:mm");
-        DateTimeFormatter dateTimFormatter = dateTimeFormatterBuilder.toFormatter();
+        dateTimeFormatterBuilder.appendPattern("d-MMM-yy 'at' HH:mm");
+        DateTimeFormatter dateTimFormatter = dateTimeFormatterBuilder.toFormatter().withLocale(Locale.ENGLISH);
         return LocalDateTime.parse(date + " " + time, dateTimFormatter);
     }
 
