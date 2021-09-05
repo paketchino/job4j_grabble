@@ -1,4 +1,4 @@
-package ru.job4j.quartz;
+package ru.job4j.quartz.post;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
