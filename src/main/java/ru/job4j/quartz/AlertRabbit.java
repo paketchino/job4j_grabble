@@ -10,6 +10,8 @@ import org.quartz.SchedulerException;
 import javax.naming.Context;
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.Properties;
 
 public class AlertRabbit {
@@ -66,11 +68,10 @@ public class AlertRabbit {
         Properties properties = new Properties();
         AlertRabbit alertRabbit = new AlertRabbit(properties);
         try {
-            alertRabbit.init();
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap jobDataMap = new JobDataMap();
-
+            //jobDataMap.put(alertRabbit.createTable("data"), jobDataMap);
             JobDetail jobDetail = newJob(Rabbit.class)
                     .usingJobData(jobDataMap).build();
             SimpleScheduleBuilder times = SimpleScheduleBuilder.simpleSchedule()

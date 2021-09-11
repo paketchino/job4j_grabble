@@ -8,19 +8,19 @@ import java.util.Map;
 
 public class SqlDataTimeParser implements DataTimeParser  {
 
-    private final Map<String, String> MONTHS = Map.ofEntries(
-            Map.entry("JAN","янв"),
-            Map.entry("FEB","фев"),
-            Map.entry("MARCH","март"),
-            Map.entry("APR","апр"),
-            Map.entry("MAY","май"),
-            Map.entry("JUNE","июнь"),
-            Map.entry("JULY","июль"),
-            Map.entry("AUG","авг"),
-            Map.entry("SEP","сент"),
-            Map.entry("OCT","окт"),
-            Map.entry("NOV","нов"),
-            Map.entry("DEC","дек")
+    private static final Map<String, String> MONTHS = Map.ofEntries(
+            Map.entry("JAN", "янв"),
+            Map.entry("FEB", "фев"),
+            Map.entry("MARCH", "март"),
+            Map.entry("APR", "апр"),
+            Map.entry("MAY", "май"),
+            Map.entry("JUNE", "июнь"),
+            Map.entry("JULY", "июль"),
+            Map.entry("AUG", "авг"),
+            Map.entry("SEP", "сент"),
+            Map.entry("OCT", "окт"),
+            Map.entry("NOV", "нов"),
+            Map.entry("DEC", "дек")
     );
 
     public String getIndex(String key) {
