@@ -24,18 +24,23 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="90ea6202-fc0d-458a-807e-63afed4fb716">
+        <schema name="pg_catalog" object-types="table, view, sequence, function" />
+        <schema name="public" object-types="table, view, column" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="84bc5ee5-c28a-402f-9511-6018e2236f81">
-      <console name="Connection" type="STANDARD" schema="information_schema" session="Main" />
+    <connection id="90ea6202-fc0d-458a-807e-63afed4fb716">
+      <console name="Connection 1" type="STANDARD" schema="" session="Main"><![CDATA[insert into rabbit1 (created_date) values (current_timestamp)]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="84bc5ee5-c28a-402f-9511-6018e2236f81" />
+    <connection id="90ea6202-fc0d-458a-807e-63afed4fb716" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -63,9 +68,9 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="84bc5ee5-c28a-402f-9511-6018e2236f81" active="true">
+      <connection id="90ea6202-fc0d-458a-807e-63afed4fb716" active="true">
         <database>
-          <name value="Connection" />
+          <name value="Connection 1" />
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
@@ -76,7 +81,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="5432" />
-          <database value="Rabbit_db" />
+          <database value="rabbit_db" />
           <type value="USER_PASSWORD" />
           <user value="postgres" />
           <deprecated-pwd value="c3RyZWV0WjE=" />
