@@ -29,7 +29,7 @@ public class AlertRabbit {
             properties.load(loader);
         }
         int value = Integer.parseInt(properties.getProperty("rabbit.interval"));
-        Class.forName("driver-class-name");
+        Class.forName(properties.getProperty("driver-class-name"));
         try (Connection connection = DriverManager.getConnection(
                 properties.getProperty("url"),
                 properties.getProperty("login"),
@@ -64,7 +64,8 @@ public class AlertRabbit {
             Connection cn = (Connection) (jobExecutionContext.getJobDetail().getJobDataMap().get("connection"));
             try (PreparedStatement statement =
                          cn.prepareStatement(
-                    "insert into rabbit1 (created_date) values (current_timestamp)")) {
+                    "insert into rabbit1 (created_date) values (current_timestamp)"
+                         )) {
                 statement.execute();
             } catch (Exception e) {
                 e.printStackTrace();
