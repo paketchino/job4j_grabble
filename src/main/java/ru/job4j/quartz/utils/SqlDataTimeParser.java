@@ -9,18 +9,18 @@ import java.util.Map;
 public class SqlDataTimeParser implements DataTimeParser  {
 
     private static final Map<String, String> MONTHS = Map.ofEntries(
-            Map.entry("JAN", "янв"),
-            Map.entry("FEB", "фев"),
-            Map.entry("MARCH", "март"),
-            Map.entry("APR", "апр"),
-            Map.entry("MAY", "май"),
-            Map.entry("JUNE", "июнь"),
-            Map.entry("JULY", "июль"),
-            Map.entry("AUG", "авг"),
-            Map.entry("SEP", "сент"),
-            Map.entry("OCT", "окт"),
-            Map.entry("NOV", "нов"),
-            Map.entry("DEC", "дек")
+            Map.entry("янв", "JAN"),
+            Map.entry("фев", "FEB"),
+            Map.entry("март", "MARCH"),
+            Map.entry("апр", "APR"),
+            Map.entry("май", "MAY"),
+            Map.entry("июнь", "JUNE"),
+            Map.entry("июль", "JULY"),
+            Map.entry("авг", "AUG"),
+            Map.entry("сен", "SEP"),
+            Map.entry("окт", "OCT"),
+            Map.entry("ноя", "NOV"),
+            Map.entry("дек", "DEC")
     );
 
     public String getIndex(String key) {
@@ -46,9 +46,9 @@ public class SqlDataTimeParser implements DataTimeParser  {
         }
         DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder();
         dateTimeFormatterBuilder.parseCaseInsensitive();
-        dateTimeFormatterBuilder.appendPattern("d MMM yy 'at' HH:mm");
+        dateTimeFormatterBuilder.appendPattern("d MMM yy HH:mm");
         DateTimeFormatter dateTimFormatter = dateTimeFormatterBuilder.toFormatter().withLocale(Locale.ENGLISH);
-        return LocalDateTime.parse(date + " " + time, dateTimFormatter);
+        return LocalDateTime.parse(date + time, dateTimFormatter);
     }
 
 }
