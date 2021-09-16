@@ -68,6 +68,26 @@ public class Post {
         return created;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Post post = (Post) o;
+        return id == post.id
+                && Objects.equals(tittle, post.tittle)
+                && Objects.equals(link, post.link)
+                && Objects.equals(created, post.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tittle, link, created);
+    }
+
 
     @Override
     public String toString() {
