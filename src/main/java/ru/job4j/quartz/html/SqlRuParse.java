@@ -15,7 +15,7 @@ public class SqlRuParse {
     public static void main(String[] args) throws Exception {
         String url = "https://www.sql.ru/forum/job-offers";
         for (int i = 1; i <= 5; i++) {
-            parser(url + i, index++);
+            parser(url + "/" + i, index++);
         }
     }
 
