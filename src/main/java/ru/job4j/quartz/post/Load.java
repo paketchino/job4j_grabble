@@ -24,22 +24,10 @@ public class Load {
     }
 
     public static void main(String[] args) {
-
-        try {
-            Document document = Jsoup.connect("https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t").get();
-            Elements row = document.select(".msgTable");
-            for (Element rows : row) {
-                Element parent = rows.parent();
-                System.out.println(parent);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        Load loader = new Load();
-//        loader.load("https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t",
-//                ".msgBody",
-//                1
-//        );
+        Load loader = new Load();
+        loader.load("https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t",
+                ".msgBody",
+                1
+        );
     }
 }
