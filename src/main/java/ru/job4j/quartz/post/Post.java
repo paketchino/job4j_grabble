@@ -1,5 +1,11 @@
 package ru.job4j.quartz.post;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -60,12 +66,28 @@ public class Post {
         return link;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public LocalDateTime getCreated() {
         return created;
+    }
+
+    public String getDescription(String link) {
+        return loadDescription(link, "msgBody", 1);
+    }
+
+    public String loadDescription(String link, String att, int index) {
+        String text = null;
+        try {
+            Document doc = Jsoup.connect(
+                    link)
+                    .get();
+            Elements row = doc.select(att);
+            Element att1 = row.get(index);
+            text = att1.text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text;
     }
 
     @Override

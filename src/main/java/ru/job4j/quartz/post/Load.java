@@ -10,24 +10,36 @@ import java.io.IOException;
 
 public class Load {
 
-    public void load() {
+    public void load(String link, String att, int index) {
         try {
             Document doc = Jsoup.connect(
-                    "https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t")
+                    link)
                     .get();
-            Elements row = doc.select(".postslisttopic");
-            for (Element td : row) {
-                Element href = td.child(0);
-                System.out.println(href.attr("href"));
-                System.out.println(href.text());
-            }
+            Elements row = doc.select(att);
+            Element att1 = row.get(index);
+            System.out.println(att1.text());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Load loader = new Load();
-        loader.load();
+
+        try {
+            Document document = Jsoup.connect("https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t").get();
+            Elements row = document.select(".msgTable");
+            for (Element rows : row) {
+                Element parent = rows.parent();
+                System.out.println(parent);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        Load loader = new Load();
+//        loader.load("https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t",
+//                ".msgBody",
+//                1
+//        );
     }
 }
