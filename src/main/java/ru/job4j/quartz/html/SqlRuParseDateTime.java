@@ -8,7 +8,7 @@ import ru.job4j.quartz.utils.SqlDataTimeParser;
 
 import java.io.IOException;
 
-public class SqlRuParse {
+public class SqlRuParseDateTime {
 
     private static int index = 1;
 

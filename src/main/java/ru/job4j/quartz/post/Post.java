@@ -46,6 +46,12 @@ public class Post {
         this.description = description;
     }
 
+    public Post(String tittle, String link, String description, LocalDateTime created) {
+        this.tittle = tittle;
+        this.link = link;
+        this.description = description;
+    }
+
     public Post(int id, String tittle, String link, String description, LocalDateTime created) {
         this.id = id;
         this.tittle = tittle;
@@ -66,13 +72,12 @@ public class Post {
         return link;
     }
 
-
     public LocalDateTime getCreated() {
         return created;
     }
 
-    public String getDescription(String link) {
-        return loadDescription(link, "msgBody", 1);
+    public String getDescription() {
+        return description;
     }
 
     public String loadDescription(String link, String att, int index) {
