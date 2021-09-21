@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -64,6 +65,10 @@ public class Post {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTittle() {
         return tittle;
     }
@@ -78,6 +83,10 @@ public class Post {
 
     public String getDescription() {
         return description;
+    }
+
+    public Timestamp getTimeStamp() {
+        return Timestamp.valueOf(created);
     }
 
     public String loadDescription(String link, String att, int index) {
