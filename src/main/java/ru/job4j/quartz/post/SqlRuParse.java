@@ -22,7 +22,6 @@ public class SqlRuParse implements Parse {
         this.dateTimeParser = dateTimeParser;
     }
 
-
     @Override
     public List<Post> list(String link) {
         List<Post> list = new ArrayList<>();

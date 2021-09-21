@@ -10,12 +10,12 @@ public class PsqlStore implements Store, AutoCloseable {
     private Connection cn;
 
     public PsqlStore(Properties properties) {
-        try {
+        try( var loader = PsqlStore.class.getClassLoader().getResourceAsStream("app.properties")) {
             Class.forName(properties.getProperty("jdbc.driver"));
             cn = DriverManager.getConnection(
-                properties.getProperty(""),
-                properties.getProperty(""),
-                properties.getProperty(""));
+                properties.getProperty("url"),
+                properties.getProperty("login"),
+                properties.getProperty("password"));
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
