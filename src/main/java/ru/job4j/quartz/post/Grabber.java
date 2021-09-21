@@ -54,6 +54,11 @@ public class Grabber implements Grab {
             JobDataMap map = context.getJobDetail().getJobDataMap();
             Store store = (Store) map.get("store");
             Parse parse = (Parse) map.get("parse");
+            parse.list("https://www.sql.ru/forum/job-offers/3");
+            parse.detail("https://www.sql.ru/forum/1338135/analitik-1s-udalenno");
+            store.save(parse.detail("https://www.sql.ru/forum/1338135/analitik-1s-udalenno"));
+            //store.findById(); something id
+            store.getALL();
         }
     }
 
