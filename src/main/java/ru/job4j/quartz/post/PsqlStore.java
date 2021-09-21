@@ -29,7 +29,7 @@ public class PsqlStore implements Store, AutoCloseable {
             statement.setString(1, post.getTittle());
             statement.setString(2, post.getDescription());
             statement.setString(3, post.getLink());
-            statement.setTimestamp(1, Timestamp.valueOf(post.getCreated()));
+            statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
