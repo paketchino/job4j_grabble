@@ -1,11 +1,11 @@
 package ru.job4j.quartz.post;
-
+//
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class PsqlStore implements Store, AutoCloseable{
+public class PsqlStore implements Store, AutoCloseable {
 
     private Connection cn;
 

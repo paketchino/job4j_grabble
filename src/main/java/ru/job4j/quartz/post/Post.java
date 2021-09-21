@@ -85,10 +85,6 @@ public class Post {
         return description;
     }
 
-    public Timestamp getTimeStamp() {
-        return Timestamp.valueOf(created);
-    }
-
     public String loadDescription(String link, String att, int index) {
         String text = null;
         try {
