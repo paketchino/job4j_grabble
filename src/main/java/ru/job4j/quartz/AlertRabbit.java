@@ -21,7 +21,6 @@ public class AlertRabbit {
 
     private Properties properties;
 
-
     public static void main(String[] args) throws Exception {
         Properties properties = new Properties();
         ClassLoader classLoader = AlertRabbit.class.getClassLoader();

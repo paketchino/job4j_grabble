@@ -50,5 +50,4 @@ public class SqlDataTimeParser implements DataTimeParser  {
         DateTimeFormatter dateTimFormatter = dateTimeFormatterBuilder.toFormatter().withLocale(Locale.ENGLISH);
         return LocalDateTime.parse(date + time, dateTimFormatter);
     }
-
 }

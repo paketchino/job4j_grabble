@@ -25,7 +25,7 @@ public class SqlRuParseDateTime {
             Elements row = document.select(".postslisttopic");
             System.out.println("Страница № " + index);
             for (Element el : row) {
-                Element href = el.child(0);
+                Element href = el.child(1);
                 System.out.println(href.attr(".href"));
                 System.out.println(href.text());
                 System.out.println(el.parent().child(5).text());

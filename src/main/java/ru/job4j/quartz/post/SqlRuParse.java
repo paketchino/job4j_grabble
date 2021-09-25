@@ -25,12 +25,11 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) {
         List<Post> list = new ArrayList<>();
-        for (int i = 0; i <= 5; i++) {
-            Document doc = null;
+        for (int i = 1; i <= 5; i++) {
             try {
-                doc = Jsoup.connect(link).get();
+                Document doc = Jsoup.connect(link).get();
                 Elements forumTable = doc.select(".forumTable");
-                Elements tr = forumTable.select("tr");
+                Elements tr = forumTable.select("postslisttopic");
                 for (Element trs : tr) {
                     Elements td = trs.select("td");
                     list.add(detail(td.get(1).child(0).attr("href")));
@@ -45,6 +44,7 @@ public class SqlRuParse implements Parse {
 
     @Override
     public Post detail(String link) {
+        SqlDataTimeParser parser = new SqlDataTimeParser();
         Post post = null;
         try {
             Document document = Jsoup.connect(
@@ -55,7 +55,7 @@ public class SqlRuParse implements Parse {
             String msgFooter = document.select(".msgFooter").get(1)
                     .ownText().replace(" [] |", "");
             LocalDateTime created =
-                    dateTimeParser.parse(msgFooter);
+                    parser.parse(msgFooter);
             post = new Post(msgHeader, link, msgDescription, created);
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,8 +65,7 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) {
         SqlDataTimeParser sql = new SqlDataTimeParser();
-
         SqlRuParse sqlRuParse = new SqlRuParse(sql);
-        sqlRuParse.list("https://www.sql.ru/forum/job-offers/1");
+        System.out.println(sqlRuParse.list("https://www.sql.ru/forum/job-offers/1"));
     }
 }

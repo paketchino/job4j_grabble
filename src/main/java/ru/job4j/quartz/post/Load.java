@@ -11,11 +11,12 @@ import ru.job4j.quartz.utils.SqlDataTimeParser;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Load {
 
-    private DataTimeParser dateTimeParser;
+    private final DataTimeParser dateTimeParser;
 
     public Load(DataTimeParser dateTimeParser) {
         this.dateTimeParser = dateTimeParser;
@@ -35,6 +36,7 @@ public class Load {
     }
 
     public Post detail(String link) {
+        SqlDataTimeParser sqlDataTimeParser = new SqlDataTimeParser();
         Post post = null;
         try {
             Document document = Jsoup.connect(
@@ -42,9 +44,9 @@ public class Load {
                     .get();
             String msgHeader = document.select(".messageHeader").get(1).text();
             String msgDescription = document.select(".msgBody").get(1).text();
-            String msgFooter = document.select(".msgFooter").get(1).ownText().replace(" [] |", "");
-            LocalDateTime created =
-                    dateTimeParser.parse(msgFooter);
+            String msgFooter2 = document.select(".msgFooter").get(1).ownText().replace("[] |", "");
+            LocalDateTime created = sqlDataTimeParser.parse(msgFooter2);
+            post.getCreated();
             post = new Post(msgHeader, link, msgDescription, created);
         } catch (IOException e) {
             e.printStackTrace();

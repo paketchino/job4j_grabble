@@ -24,29 +24,6 @@ public class Post {
 
     public Post() {
     }
-
-    public Post(int id) {
-        this.id = id;
-    }
-
-    public Post(int id, String tittle) {
-        this.id = id;
-        this.tittle = tittle;
-    }
-
-    public Post(int id, String tittle, String link) {
-        this.id = id;
-        this.tittle = tittle;
-        this.link = link;
-    }
-
-    public Post(int id, String tittle, String link, String description) {
-        this.id = id;
-        this.tittle = tittle;
-        this.link = link;
-        this.description = description;
-    }
-
     public Post(String tittle, String link, String description, LocalDateTime created) {
         this.tittle = tittle;
         this.link = link;
@@ -79,6 +56,10 @@ public class Post {
 
     public LocalDateTime getCreated() {
         return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+      this.created = created;
     }
 
     public String getDescription() {

@@ -3,11 +3,14 @@ package ru.job4j.quartz.post;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
+import ru.job4j.quartz.utils.SqlDataTimeParser;
+
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 public class Grabber implements Grab {
@@ -15,7 +18,7 @@ public class Grabber implements Grab {
     private final Properties cfg = new Properties();
 
     public Store store() {
-        return null;
+        return new PsqlStore(cfg);
     }
 
     public Scheduler scheduler() throws SchedulerException {
@@ -54,15 +57,18 @@ public class Grabber implements Grab {
             JobDataMap map = context.getJobDetail().getJobDataMap();
             Store store = (Store) map.get("store");
             Parse parse = (Parse) map.get("parse");
-            parse.list("https://www.sql.ru/forum/job-offers/3");
-            parse.detail("https://www.sql.ru/forum/1338135/analitik-1s-udalenno");
-            store.save(parse.detail("https://www.sql.ru/forum/1338135/analitik-1s-udalenno"));
-            //store.findById(); something id
-            store.getALL();
+            List<Post> list = null;
+            for (Post post : parse.list("https://www.sql.ru/forum/job-offers")) {
+                store.save(post);
+            }
         }
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws SchedulerException, IOException {
+        Grabber grab = new Grabber();
+        grab.cfg();
+        Scheduler scheduler = grab.scheduler();
+        Store store = grab.store();
+        grab.init(new SqlRuParse(new SqlDataTimeParser()), store, scheduler);
     }
 }

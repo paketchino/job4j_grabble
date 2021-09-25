@@ -1,6 +1,9 @@
 package ru.job4j.quartz.post;
 //
+import ru.job4j.quartz.utils.SqlDataTimeParser;
+
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -29,7 +32,7 @@ public class PsqlStore implements Store, AutoCloseable {
             statement.setString(1, post.getTittle());
             statement.setString(2, post.getDescription());
             statement.setString(3, post.getLink());
-            statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
+            statement.setTimestamp(4, Timestamp.valueOf((post.getCreated())));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -47,7 +50,6 @@ public class PsqlStore implements Store, AutoCloseable {
         List<Post> postList = new ArrayList<>();
         try (PreparedStatement prepared = cn.prepareStatement("select * from post")) {
             try (ResultSet resultSet = prepared.executeQuery()) {
-                if (resultSet.next()) {
                     while (resultSet.next()) {
                         postList.add(new Post(resultSet.getInt("id"),
                                 resultSet.getString("name"),
@@ -55,7 +57,6 @@ public class PsqlStore implements Store, AutoCloseable {
                                 resultSet.getString("link"),
                                 resultSet.getTimestamp("created").toLocalDateTime()));
                     }
-                }
             }
 
         } catch (SQLException e) {
@@ -70,7 +71,7 @@ public class PsqlStore implements Store, AutoCloseable {
         try (PreparedStatement prepared = cn.prepareStatement("select from post where id = ?")) {
             prepared.setInt(1, id);
             try (ResultSet resultSet = prepared.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     post = new Post(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
