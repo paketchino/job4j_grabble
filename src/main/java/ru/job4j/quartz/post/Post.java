@@ -24,10 +24,12 @@ public class Post {
 
     public Post() {
     }
+
     public Post(String tittle, String link, String description, LocalDateTime created) {
         this.tittle = tittle;
         this.link = link;
         this.description = description;
+        this.created = created;
     }
 
     public Post(int id, String tittle, String link, String description, LocalDateTime created) {

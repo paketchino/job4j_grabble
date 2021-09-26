@@ -25,14 +25,14 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) {
         List<Post> list = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 0; i <= 5; i++) {
             try {
-                Document doc = Jsoup.connect(link).get();
+                Document doc = Jsoup.connect(link + "/" + i).get();
                 Elements forumTable = doc.select(".forumTable");
-                Elements tr = forumTable.select("postslisttopic");
+                Elements tr = forumTable.select(".postslisttopic");
                 for (Element trs : tr) {
-                    Elements td = trs.select("td");
-                    list.add(detail(td.get(1).child(0).attr("href")));
+                    Element td = trs.select("td").get(0).select("a").first();
+                    list.add(detail(td.attr("href")));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -44,18 +44,18 @@ public class SqlRuParse implements Parse {
 
     @Override
     public Post detail(String link) {
-        SqlDataTimeParser parser = new SqlDataTimeParser();
-        Post post = null;
+        Post post = new Post();
         try {
             Document document = Jsoup.connect(
                     link)
                     .get();
-            String msgHeader = document.select(".messageHeader").get(1).text();
-            String msgDescription = document.select(".msgBody").get(1).text();
-            String msgFooter = document.select(".msgFooter").get(1)
-                    .ownText().replace(" [] |", "");
+            String msgHeader = document.select(".messageHeader").get(0).text();
+            String msgDescription = document.select(".msgBody").get(0).text();
+
+            String msgFooterText = document.select(".msgFooter").last().text();
+            String date = msgFooterText.substring(0, msgFooterText.indexOf("[")).trim();
             LocalDateTime created =
-                    parser.parse(msgFooter);
+                    dateTimeParser.parse(date);
             post = new Post(msgHeader, link, msgDescription, created);
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,8 +64,9 @@ public class SqlRuParse implements Parse {
     }
 
     public static void main(String[] args) {
-        SqlDataTimeParser sql = new SqlDataTimeParser();
-        SqlRuParse sqlRuParse = new SqlRuParse(sql);
-        System.out.println(sqlRuParse.list("https://www.sql.ru/forum/job-offers/1"));
+        SqlRuParse sqlRuParse = new SqlRuParse(new SqlDataTimeParser());
+        List<Post> posts = sqlRuParse.list("https://www.sql.ru/forum/job-offers/");
+        System.out.println(sqlRuParse.detail("https://www.sql.ru/forum/1338951/programmist-s"));
+        System.out.println(posts);
     }
 }

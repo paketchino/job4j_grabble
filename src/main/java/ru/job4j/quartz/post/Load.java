@@ -44,9 +44,12 @@ public class Load {
                     .get();
             String msgHeader = document.select(".messageHeader").get(1).text();
             String msgDescription = document.select(".msgBody").get(1).text();
+            String msgFooterText = document.select(".msgFooter").last().text();
+            System.out.println(msgFooterText);
+            String date = msgFooterText.substring(0, msgFooterText.indexOf("[")).trim();
+            System.out.println(date);
             String msgFooter2 = document.select(".msgFooter").get(1).ownText().replace("[] |", "");
-            LocalDateTime created = sqlDataTimeParser.parse(msgFooter2);
-            post.getCreated();
+            LocalDateTime created = sqlDataTimeParser.parse(date);
             post = new Post(msgHeader, link, msgDescription, created);
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,8 +65,8 @@ public class Load {
                     .get();
             Elements post = doc.select(".postslisttopic");
             for (Element el : post) {
-                Element href = el.child(0);
-                list.add(detail(href.attr("href")));
+                Element td = post.select("td").get(0).select("a").first();
+                list.add(detail(td.attr("href")));
             }
         } catch (IOException e) {
             e.printStackTrace();
