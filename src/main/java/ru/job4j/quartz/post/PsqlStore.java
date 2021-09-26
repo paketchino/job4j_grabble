@@ -36,7 +36,7 @@ public class PsqlStore implements Store, AutoCloseable {
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    post.setId(generatedKeys.getInt(post.getId()));
+                    post.setId(generatedKeys.getInt(1));
                 }
 
             }
@@ -51,7 +51,8 @@ public class PsqlStore implements Store, AutoCloseable {
         try (PreparedStatement prepared = cn.prepareStatement("select * from post")) {
             try (ResultSet resultSet = prepared.executeQuery()) {
                     while (resultSet.next()) {
-                        postList.add(new Post(resultSet.getInt("id"),
+                        postList.add(new Post(
+                                resultSet.getInt("id"),
                                 resultSet.getString("name"),
                                 resultSet.getString("text_post"),
                                 resultSet.getString("link"),

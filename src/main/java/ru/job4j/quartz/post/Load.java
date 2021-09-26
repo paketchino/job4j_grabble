@@ -65,7 +65,7 @@ public class Load {
                     .get();
             Elements post = doc.select(".postslisttopic");
             for (Element el : post) {
-                Element td = post.select("td").get(0).select("a").first();
+                Element td = el.select("td").get(0).select("a").first();
                 list.add(detail(td.attr("href")));
             }
         } catch (IOException e) {
