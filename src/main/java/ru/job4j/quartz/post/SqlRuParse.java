@@ -22,6 +22,12 @@ public class SqlRuParse implements Parse {
         this.dateTimeParser = dateTimeParser;
     }
 
+    /**
+     * получаем список постов 5 страниц
+     * @param link входный параметр, который с помощью
+     * метода detail получают информацию о post
+     * @return список list
+     */
     @Override
     public List<Post> list(String link) {
         List<Post> list = new ArrayList<>();
@@ -41,7 +47,13 @@ public class SqlRuParse implements Parse {
         return list;
     }
 
-
+    /**
+     * Разбивает обьявление на отдельные
+     * ДЕТАЛИ в соотвествие с классом Post
+     * @param link входной параметр который передает ссылку
+     * на страницу
+     * @return возвращает информацию о post
+     */
     @Override
     public Post detail(String link) {
         Post post = new Post();
@@ -50,7 +62,7 @@ public class SqlRuParse implements Parse {
                     link)
                     .get();
             String msgHeader = document.select(".messageHeader").get(0).text();
-            String msgDescription = document.select(".msgBody").get(0).text();
+            String msgDescription = post.loadDescription(link, 1);
 
             String msgFooterText = document.select(".msgFooter").last().text();
             String date = msgFooterText.substring(0, msgFooterText.indexOf("[")).trim();
@@ -65,8 +77,8 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) {
         SqlRuParse sqlRuParse = new SqlRuParse(new SqlDataTimeParser());
-        List<Post> posts = sqlRuParse.list("https://www.sql.ru/forum/job-offers/");
+        //List<Post> posts = sqlRuParse.list("https://www.sql.ru/forum/job-offers/");
         System.out.println(sqlRuParse.detail("https://www.sql.ru/forum/1338951/programmist-s"));
-        System.out.println(posts);
+        //System.out.println(posts);
     }
 }

@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 public class Grabber implements Grab {
 
@@ -31,12 +32,20 @@ public class Grabber implements Grab {
         return scheduler;
     }
 
+    /**
+     * загружает properties файл
+     * @throws IOException
+     */
     public void cfg() throws IOException {
         try (var load = Grabber.class.getClassLoader().getResourceAsStream("app.properties")) {
             cfg.load(load);
         }
     }
 
+    /**
+     * Получаем доступ в серверу
+     * @param store 
+     */
     public void web(Store store) {
         new Thread(() -> {
             try (ServerSocket server = new ServerSocket(Integer.parseInt(cfg.getProperty("port")))) {

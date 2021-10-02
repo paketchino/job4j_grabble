@@ -7,7 +7,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class SqlDataTimeParser implements DataTimeParser  {
-
+    /**
+     * константы
+     */
     private static final Map<String, String> MONTHS = Map.ofEntries(
             Map.entry("янв", "JAN"),
             Map.entry("фев", "FEB"),
@@ -23,6 +25,11 @@ public class SqlDataTimeParser implements DataTimeParser  {
             Map.entry("дек", "DEC")
     );
 
+    /**
+     *
+     * @param key возвращает найденный индекс
+     * @return key
+     */
     public String getIndex(String key) {
         if (MONTHS.size() < 1) {
             throw new IllegalArgumentException();
@@ -30,6 +37,12 @@ public class SqlDataTimeParser implements DataTimeParser  {
         return MONTHS.get(key);
     }
 
+    /**
+     * Парсит дату по трем значениям
+     * сегодня, завтра и дата
+     * @param parse входной параметр
+     * @return возвращает от парсенную дату
+     */
     @Override
     public LocalDateTime parse(String parse) {
         String date = parse.split(",")[0];

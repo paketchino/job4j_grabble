@@ -64,17 +64,17 @@ public class Post {
       this.created = created;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescription(String link, int index) {
+        return loadDescription(link, index);
     }
 
-    public String loadDescription(String link, String att, int index) {
+    public String loadDescription(String link, int index) {
         String text = null;
         try {
             Document doc = Jsoup.connect(
                     link)
                     .get();
-            Elements row = doc.select(att);
+            Elements row = doc.select(".msgBody");
             Element att1 = row.get(index);
             text = att1.text();
         } catch (IOException e) {
@@ -82,6 +82,7 @@ public class Post {
         }
         return text;
     }
+
 
     @Override
     public boolean equals(Object o) {

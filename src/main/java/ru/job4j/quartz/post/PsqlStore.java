@@ -12,6 +12,11 @@ public class PsqlStore implements Store, AutoCloseable {
 
     private Connection cn;
 
+    /**
+     * Выполняет соеденение с БД
+     * загружает информацию из app.properties
+     * @param properties файл который он читает
+     */
     public PsqlStore(Properties properties) {
         try (var loader = PsqlStore.class.getClassLoader().getResourceAsStream("app.properties")) {
             Class.forName(properties.getProperty("jdbc.driver"));
@@ -24,14 +29,18 @@ public class PsqlStore implements Store, AutoCloseable {
         }
     }
 
+    /**
+     * добавляет в БД информацию о post
+     * @param post добавляет
+     */
     @Override
     public void save(Post post) {
         try (PreparedStatement statement =
-                    cn.prepareStatement("insert into post(name, text_post, link, created) values (?, ?, ?, ?)",
+                    cn.prepareStatement("insert into post(name, link, text_post, created) values (?, ?, ?, ?)",
                             Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, post.getTittle());
-            statement.setString(2, post.getDescription());
-            statement.setString(3, post.getLink());
+            statement.setString(2, post.getLink());
+            statement.setString(3, post.getDescription(post.getLink(), 1));
             statement.setTimestamp(4, Timestamp.valueOf((post.getCreated())));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -45,6 +54,10 @@ public class PsqlStore implements Store, AutoCloseable {
         }
     }
 
+    /**
+     * получает список всех созданных постов в БД
+     * @return postList список постов в БД
+     */
     @Override
     public List<Post> getALL() {
         List<Post> postList = new ArrayList<>();
@@ -54,8 +67,8 @@ public class PsqlStore implements Store, AutoCloseable {
                         postList.add(new Post(
                                 resultSet.getInt("id"),
                                 resultSet.getString("name"),
-                                resultSet.getString("text_post"),
                                 resultSet.getString("link"),
+                                resultSet.getString("text_post"),
                                 resultSet.getTimestamp("created").toLocalDateTime()));
                     }
             }
@@ -66,6 +79,11 @@ public class PsqlStore implements Store, AutoCloseable {
         return postList;
     }
 
+    /**
+     * медот ищет id
+     * @param id = задаваемый параметр
+     * @return возвращает найденный id
+     */
     @Override
     public Post findById(int id) {
         Post post = null;
@@ -86,6 +104,7 @@ public class PsqlStore implements Store, AutoCloseable {
         }
         return post;
     }
+
 
     @Override
     public void close() throws Exception {
