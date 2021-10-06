@@ -77,8 +77,8 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) {
         SqlRuParse sqlRuParse = new SqlRuParse(new SqlDataTimeParser());
-        //List<Post> posts = sqlRuParse.list("https://www.sql.ru/forum/job-offers/");
+        List<Post> posts = sqlRuParse.list("https://www.sql.ru/forum/job-offers/");
         System.out.println(sqlRuParse.detail("https://www.sql.ru/forum/1338951/programmist-s"));
-        //System.out.println(posts);
+        System.out.println(posts);
     }
 }
