@@ -1,5 +1,4 @@
 package ru.job4j.post;
-//
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class PsqlStore implements Store, AutoCloseable {
 
     /**
      * добавляет в БД информацию о post
-     * @param post добавляет
+     * @param post пост на сайте
      */
     @Override
     public void save(Post post) {
