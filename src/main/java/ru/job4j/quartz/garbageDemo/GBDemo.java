@@ -1,4 +1,4 @@
-package ru.job4j.quartz.GarbageDemo;
+package ru.job4j.quartz.garbageDemo;
 
 public class GBDemo {
 
