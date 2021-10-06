@@ -1,18 +1,14 @@
-package ru.job4j.quartz.post;
+package ru.job4j.post;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import ru.job4j.quartz.utils.DataTimeParser;
-import ru.job4j.quartz.utils.SqlDataTimeParser;
+import ru.job4j.utils.DataTimeParser;
+import ru.job4j.utils.SqlDataTimeParser;
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Load {

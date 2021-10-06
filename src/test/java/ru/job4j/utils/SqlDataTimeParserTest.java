@@ -1,6 +1,5 @@
-package ru.job4j.quartz.utils;
+package ru.job4j.utils;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 

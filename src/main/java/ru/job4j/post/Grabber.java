@@ -1,9 +1,8 @@
-package ru.job4j.quartz.post;
+package ru.job4j.post;
 
 import org.quartz.*;
-import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
-import ru.job4j.quartz.utils.SqlDataTimeParser;
+import ru.job4j.utils.SqlDataTimeParser;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
@@ -14,9 +13,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 public class Grabber implements Grab {
 

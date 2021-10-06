@@ -1,4 +1,4 @@
-package ru.job4j.quartz.post;
+package ru.job4j.post;
 //
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

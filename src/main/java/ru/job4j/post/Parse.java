@@ -1,4 +1,4 @@
-package ru.job4j.quartz.post;
+package ru.job4j.post;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.job4j.quartz.garbageDemo;
+package ru.job4j.garbage;
 
 public class Person {
 

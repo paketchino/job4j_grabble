@@ -1,18 +1,13 @@
-package ru.job4j.quartz;
+package ru.job4j;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 
-import javax.naming.Context;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.Properties;
 
 public class AlertRabbit {

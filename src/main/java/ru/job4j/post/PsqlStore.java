@@ -1,9 +1,7 @@
-package ru.job4j.quartz.post;
+package ru.job4j.post;
 //
-import ru.job4j.quartz.utils.SqlDataTimeParser;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
