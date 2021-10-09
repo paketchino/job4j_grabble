@@ -50,7 +50,7 @@ public class SqlDataTimeParser implements DataTimeParser  {
         String time = parse.split(",")[1];
         if (date.contains("сегодня")) {
             date = LocalDateTime.now().format(dateTimeFormatter);
-        } else if (date.contains("завтра")) {
+        } else if (date.contains("вчера")) {
             date = LocalDateTime.now().minusDays(1).format(dateTimeFormatter);
         } else {
             String[] dt = date.split(" ");

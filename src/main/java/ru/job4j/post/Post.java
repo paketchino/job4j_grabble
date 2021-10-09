@@ -63,26 +63,6 @@ public class Post {
       this.created = created;
     }
 
-    public String getDescription(String link, int index) {
-        return loadDescription(link, index);
-    }
-
-    public String loadDescription(String link, int index) {
-        String text = null;
-        try {
-            Document doc = Jsoup.connect(
-                    link)
-                    .get();
-            Elements row = doc.select(".msgBody");
-            Element att1 = row.get(index);
-            text = att1.text();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return text;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

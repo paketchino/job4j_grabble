@@ -32,8 +32,8 @@ public class SqlDataTimeParserTest {
     }
 
     @Test
-    public void whenNeedCheckDateTimeTomorrow() {
-        LocalDateTime dateTime = new SqlDataTimeParser().parse("завтра, 19:23");
+    public void whenNeedCheckDateTimeYesterday() {
+        LocalDateTime dateTime = new SqlDataTimeParser().parse("вчера, 19:23");
         LocalDateTime res = LocalDateTime.of(
                 LocalDate.now().minusDays(1),
                 LocalTime.of(19, 23)
