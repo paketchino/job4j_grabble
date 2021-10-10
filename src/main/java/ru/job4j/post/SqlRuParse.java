@@ -60,8 +60,9 @@ public class SqlRuParse implements Parse {
                     link)
                     .get();
             String msgHeader = document.select(".messageHeader").get(0).text();
-            String msgDescription = loadDescription(link);
-
+            Elements row = document.select(".msgBody");
+            Element att1 = row.get(1);
+            String msgDescription = att1.text();
             String msgFooterText = document.select(".msgFooter").last().text();
             String date = msgFooterText.substring(0, msgFooterText.indexOf("[")).trim();
             LocalDateTime created =
@@ -71,27 +72,6 @@ public class SqlRuParse implements Parse {
             e.printStackTrace();
         }
         return post;
-    }
-
-    /**
-     * Данный метод загружает описание
-     * @param link ссылка на post
-     * для вывода
-     * @return возвращает описание обьявления
-     */
-    public static String loadDescription(String link) {
-        String text = null;
-        try {
-            Document doc = Jsoup.connect(
-                    link)
-                    .get();
-            Elements row = doc.select(".msgBody");
-            Element att1 = row.get(1);
-            text = att1.text();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return text;
     }
 
     public static void main(String[] args) {

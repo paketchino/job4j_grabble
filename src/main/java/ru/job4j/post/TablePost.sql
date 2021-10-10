@@ -1,7 +1,7 @@
 drop table if exists post;
 create table if not exists post (
 	id serial not null,
-	name varchar(50),
+	name text,
 	text_post text
 	link text unique,
 	created timestamp,

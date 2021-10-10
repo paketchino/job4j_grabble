@@ -39,7 +39,7 @@ public class PsqlStore implements Store, AutoCloseable {
                             Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, post.getTittle());
             statement.setString(2, post.getLink());
-            statement.setString(3, loadDescription(post.getLink()));
+            statement.setString(3, post.getDescription());
             statement.setTimestamp(4, Timestamp.valueOf((post.getCreated())));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {

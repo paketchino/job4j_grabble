@@ -63,6 +63,10 @@ public class Post {
       this.created = created;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
