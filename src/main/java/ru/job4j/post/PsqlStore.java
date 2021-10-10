@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static ru.job4j.post.SqlRuParse.loadDescription;
-
 public class PsqlStore implements Store, AutoCloseable {
 
     private Connection cn;
