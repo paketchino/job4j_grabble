@@ -1,5 +1,7 @@
 package ru.job4j.garbage;
 
+import static com.carrotsearch.sizeof.RamUsageEstimator.sizeOf;
+
 public class GBDemo {
 
     private static final long KB = 1000;
@@ -18,8 +20,8 @@ public class GBDemo {
 
     public static void main(String[] args) {
         info();
-        for (int i = 0; i < 3500; i++) {
-           new Person(i, "N" + i);
+        for (int i = 0; i < 10; i++) {
+            new User("N" + i);
         }
         System.gc();
         info();
