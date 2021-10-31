@@ -1,13 +1,16 @@
 package ru.job4j.cache;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.ref.SoftReference;
+import java.util.Objects;
 
-public class Emulator {
+public class Emulator extends DirFileCache {
 
     private String path;
-    private AbstractCache<String, String> cache;
+
+    public Emulator(String path) {
+        super(path);
+    }
 
     private String readFile(String path) {
         StringBuilder sb = new StringBuilder();
@@ -27,16 +30,20 @@ public class Emulator {
         if (!file.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsolutePath()));
         }
-        for (File fil : file.listFiles()) {
-            cache.put(fil.getName(), this.readFile(path));
+        for (File fil : Objects.requireNonNull(file.listFiles())) {
+            super.put(fil.getName(), readFile(fil.toString()));
         }
     }
 
-    public String getDate(String key) {
-        return cache.get(key);
+    public void getDate(String key) {
+        System.out.println(get(key));
     }
 
     public static void main(String[] args) {
-
+        String path = "src/main/java/ru/job4j/cache/";
+        Emulator emulator = new Emulator(path);
+        emulator.getDirectory(path);
+        emulator.getDate("Names.txt");
+        emulator.getDate("Adress.txt");
     }
 }
