@@ -1,7 +1,6 @@
 package ru.job4j.cache;
 
 import java.io.*;
-import java.lang.ref.SoftReference;
 import java.util.Objects;
 
 public class Emulator extends DirFileCache {
