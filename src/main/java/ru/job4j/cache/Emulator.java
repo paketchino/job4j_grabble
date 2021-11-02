@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Emulator {
 
-    private static final Boolean watch = true;
-    private static final String getDir = "getDir";
+    private static final Boolean WATCH = true;
+    private static final String GETDIR = "getDir";
     private static final String OUT = "out";
 
     private HashMap<String, String> cache = new HashMap<>();
@@ -41,11 +41,11 @@ public class Emulator {
         Scanner scanner = new Scanner(System.in);
         String enterFile = scanner.next();
         while (!enterFile.equals(OUT)) {
-            if (enterFile.equals(getDir)) {
+            if (enterFile.equals(GETDIR)) {
                 System.out.println("Введите путь директории");
                 String paths = scanner.next();
                 emulator.getDirectory(paths);
-                if (watch) {
+                if (WATCH) {
                     System.out.println("Введите файл который необходимо найти");
                     String findFile = scanner.next();
                     File file = new File(findFile);
