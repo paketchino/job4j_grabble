@@ -1,15 +1,17 @@
 package ru.job4j.cache;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.Scanner;
 
-public class Emulator extends DirFileCache {
+public class Emulator {
 
-    private String path;
+    private static final Boolean watch = true;
+    private static final String getDir = "getDir";
+    private static final String OUT = "out";
 
-    public Emulator(String path) {
-        super(path);
-    }
+    private HashMap<String, String> cache = new HashMap<>();
 
     private String readFile(String path) {
         StringBuilder sb = new StringBuilder();
@@ -23,26 +25,37 @@ public class Emulator extends DirFileCache {
 
     public void getDirectory(String path) {
         File file = new File(path);
-        if (!file.exists()) {
-            throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsolutePath()));
-        }
-        if (!file.isDirectory()) {
-            throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsolutePath()));
-        }
         for (File fil : Objects.requireNonNull(file.listFiles())) {
-            super.put(fil.getName(), readFile(fil.toString()));
+            cache.put(fil.getName(), readFile(fil.toString()));
         }
     }
 
     public void getDate(String key) {
-        System.out.println(get(key));
+        System.out.println(cache.get(key));
     }
 
     public static void main(String[] args) {
         String path = "src/main/java/ru/job4j/cache/";
-        Emulator emulator = new Emulator(path);
-        emulator.getDirectory(path);
-        emulator.getDate("Names.txt");
-        emulator.getDate("Adress.txt");
-    }
+        Emulator emulator = new Emulator();
+        System.out.println("Enter that do you want");
+        Scanner scanner = new Scanner(System.in);
+        String enterFile = scanner.next();
+        while (!enterFile.equals(OUT)) {
+            if (enterFile.equals(getDir)) {
+                System.out.println("Введите путь директории");
+                String paths = scanner.next();
+                emulator.getDirectory(paths);
+                if (watch) {
+                    System.out.println("Введите файл который необходимо найти");
+                    String findFile = scanner.next();
+                    File file = new File(findFile);
+                    if (!file.exists()) {
+                        System.out.println("Данный файл отсуствует");
+                        continue;
+                    }
+                    emulator.getDate(findFile);
+                }
+            }
+        }
+   }
 }
