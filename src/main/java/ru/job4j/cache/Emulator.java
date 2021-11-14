@@ -2,12 +2,13 @@ package ru.job4j.cache;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Emulator {
 
-    private static final Boolean WATCH = true;
+    private Boolean watch = true;
     private static final String GETDIR = "getDir";
     private static final String OUT = "out";
 
@@ -30,8 +31,9 @@ public class Emulator {
         }
     }
 
-    public void getDate(String key) {
-        System.out.println(cache.get(key));
+    public String getDate(String key, String path) {
+        AbstractCache<String, String> cache = new DirFileCache(path);
+        return cache.get(key);
     }
 
     public static void main(String[] args) {
@@ -42,20 +44,21 @@ public class Emulator {
         String enterFile = scanner.next();
         while (!enterFile.equals(OUT)) {
             if (enterFile.equals(GETDIR)) {
-                System.out.println("Введите путь директории");
+                System.out.println("Введите путь кешируемой директории");
                 String paths = scanner.next();
-                emulator.getDirectory(paths);
-                if (WATCH) {
-                    System.out.println("Введите файл который необходимо найти");
-                    String findFile = scanner.next();
-                    File file = new File(findFile);
-                    if (!file.exists()) {
-                        System.out.println("Данный файл отсуствует");
-                        continue;
-                    }
-                    emulator.getDate(findFile);
+                if (paths == null || paths.isEmpty()) {
+                    System.out.println("Такой директории нет, введите другую директорию");
+                } else {
+                    emulator.getDirectory(paths);
+                }
+                if (emulator.watch) {
+                    System.out.println("Укажите файл из кеша");
+                    String file = scanner.next();
+                        String input = emulator.getDate(file, paths);
+                        System.out.println(input);
+                        emulator.watch = false;
                 }
             }
         }
-   }
+    }
 }
